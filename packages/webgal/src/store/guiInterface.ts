@@ -7,6 +7,7 @@ export enum MenuPanelTag {
   Save, // “保存”选项卡
   Load, // “读取”选项卡
   Option, // “设置”选项卡
+  TextPage, // "文本"选项卡
 }
 
 /**

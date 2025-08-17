@@ -130,6 +130,9 @@ const en = {
     title: {
       title: 'TITLE',
     },
+    textPage: {
+      title: 'NOTES',
+    },
     exit: {
       title: 'BACK',
     },

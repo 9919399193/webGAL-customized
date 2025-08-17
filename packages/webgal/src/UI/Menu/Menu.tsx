@@ -4,6 +4,7 @@ import { MenuPanel } from './MenuPanel/MenuPanel';
 import { Save } from './SaveAndLoad/Save/Save';
 import { Load } from './SaveAndLoad/Load/Load';
 import { Options } from './Options/Options';
+import { TextPage } from './TextPage/TextPage';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/store/store';
 import { MenuPanelTag } from '@/store/guiInterface';
@@ -28,6 +29,9 @@ const Menu: FC = () => {
     case MenuPanelTag.Option:
       currentTag = <Options />;
       // menuBgColor = 'linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%)';
+      break;
+    case MenuPanelTag.TextPage:
+      currentTag = <TextPage />;
       break;
   }
   return (

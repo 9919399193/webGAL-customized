@@ -21,6 +21,10 @@ export const MenuPanel = () => {
   const { playSeClick, playSeDialogOpen, playSePageChange } = useSoundEffect();
   const GUIState = useSelector((state: RootState) => state.GUI);
   const dispatch = useDispatch();
+
+  const TextPageTagOn = GUIState.currentMenuTag === MenuPanelTag.TextPage ? ` ${styles.MenuPanel_button_hl}` : ``;
+  const TextPageColor = GUIState.currentMenuTag === MenuPanelTag.TextPage ? `rgba(81, 110, 65, 0.9)` : `rgba(123,144,169,1)`;
+
   // 设置Menu按钮的高亮
   const SaveTagOn = GUIState.currentMenuTag === MenuPanelTag.Save ? ` ${styles.MenuPanel_button_hl}` : ``;
   const LoadTagOn = GUIState.currentMenuTag === MenuPanelTag.Load ? ` ${styles.MenuPanel_button_hl}` : ``;
@@ -98,6 +102,19 @@ export const MenuPanel = () => {
         }}
         tagName={t('options.title')}
         key="optionButton"
+      />
+
+      <MenuPanelButton
+        iconName="text"
+        buttonOnClassName={TextPageTagOn}
+        iconColor={TextPageColor}
+        tagColor={TextPageColor}
+        clickFunc={() => {
+          playSePageChange();
+          dispatch(setMenuPanelTag(MenuPanelTag.TextPage));
+        }}
+        tagName={t('textPage.title')}
+        key="textButton"
       />
 
       <MenuPanelButton

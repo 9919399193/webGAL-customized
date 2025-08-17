@@ -137,6 +137,9 @@ const zhTw = {
         extra: 'CG模式',
       },
     },
+    textPage: {
+      title: '備忘',
+    },
     exit: {
       title: '返回',
     },

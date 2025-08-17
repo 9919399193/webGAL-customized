@@ -137,6 +137,9 @@ const zhCn = {
         extra: '鉴赏模式',
       },
     },
+    textPage: {
+      title: '备忘',
+    },
     exit: {
       title: '返回',
     },
