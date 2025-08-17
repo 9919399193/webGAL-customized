@@ -8,8 +8,6 @@ import { sceneFetcher } from './controller/scene/sceneFetcher';
 import { sceneParser } from './parser/sceneParser';
 import { bindExtraFunc } from '@/Core/util/coreInitialFunction/bindExtraFunc';
 import { webSocketFunc } from '@/Core/util/syncWithEditor/webSocketFunc';
-import { webgalStore } from '@/store/store';
-import { stageActions } from '@/store/stageReducer';
 import uniqWith from 'lodash/uniqWith';
 import { scenePrefetcher } from './util/prefetcher/scenePrefetcher';
 import PixiStage from '@/Core/controller/stage/pixi/PixiController';
@@ -41,29 +39,6 @@ export const initializeScript = async (): Promise<void> => {
   loadStyle('./game/userStyleSheet.css');
   getUserAnimation();
   infoFetcher('./game/config.txt');
-
-  try {
-    // 加载帮助内容
-    const response = await axios.get('./game/notes/notes.json');
-    if (!response.data || !response.data.title || !response.data.content) {
-      throw new Error('Help content is missing required fields');
-    }
-    
-    logger.info('成功加载帮助内容:', response.data);
-    webgalStore.dispatch(stageActions.setStage({ 
-      key: 'textPageContent', 
-      value: response.data 
-    }));
-  } catch (error) {
-    logger.error(`加载帮助内容失败：${error}`);
-    webgalStore.dispatch(stageActions.setStage({ 
-      key: 'textPageContent', 
-      value: {
-        title: 'WebGAL 帮助',
-        content: '帮助内容加载失败，请检查 game/notes/notes.json 文件。'
-      }
-    }));
-  }
 
   // 初始化游戏场景
   const sceneUrl = assetSetter('start.txt', fileType.scene);
