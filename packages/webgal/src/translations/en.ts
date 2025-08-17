@@ -181,6 +181,7 @@ const en = {
       load: 'Load',
       fullscreen: 'Full Screen',
       options: 'Options',
+      notes: 'Notes',
       title: 'Title',
       titleTips: 'Confirm return to the title screen',
     },

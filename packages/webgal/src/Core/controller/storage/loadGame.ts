@@ -13,6 +13,7 @@ import { scenePrefetcher } from '@/Core/util/prefetcher/scenePrefetcher';
 import { setEbg } from '@/Core/gameScripts/changeBg/setEbg';
 
 import { WebGAL } from '@/Core/WebGAL';
+import { PRESERVE_STAGE_KEYS } from '@/Core/constants';
 
 /**
  * 读取游戏存档
@@ -61,6 +62,11 @@ export function loadGameFromStageData(stageData: ISaveData) {
 
   // 恢复舞台状态
   const newStageState = cloneDeep(loadFile.nowStageState);
+  const currentState = webgalStore.getState().stage;
+  
+  // 保留当前的帮助内容
+  newStageState[PRESERVE_STAGE_KEYS.TEXT_PAGE] = currentState[PRESERVE_STAGE_KEYS.TEXT_PAGE];
+  
   const dispatch = webgalStore.dispatch;
   dispatch(resetStageState(newStageState));
 

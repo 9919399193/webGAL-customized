@@ -206,6 +206,10 @@ export interface IStageState {
   isDisableTextbox: boolean;
   replacedUIlable: Record<string, string>;
   figureMetaData: figureMetaData;
+  textPageContent?: {
+    title: string;
+    content: string;
+  };
 }
 
 /**

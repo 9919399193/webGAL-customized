@@ -1,6 +1,8 @@
 import styles from './textPage.module.scss';
 import { FC } from 'react';
 import useTrans from '@/hooks/useTrans';
+import { useSelector } from 'react-redux';
+import { RootState } from '@/store/store';
 
 /**
  * 文本页面组件
@@ -8,13 +10,20 @@ import useTrans from '@/hooks/useTrans';
  */
 export const TextPage: FC = () => {
   const t = useTrans('menu.');
+  const stageState = useSelector((state: RootState) => state.stage);
+  const textPageContent = stageState.textPageContent || {
+    title: t('textPage.defaultTitle'),
+    content: t('textPage.defaultContent')
+  };
 
   return (
     <div className={styles.TextPage_main}>
       <div className={styles.TextPage_content}>
-        <h1>文本页面</h1>
+        <h1 style={{ fontSize: '1.5em', marginBottom: '0.5em' }}>{textPageContent.title}</h1>
         <div className={styles.TextPage_text}>
-          这里是文本内容。您可以在这里添加任何想要显示的文本信息。
+          {textPageContent.content.split('\n').map((line, index) => (
+            <p key={index} style={{ margin: '0.5em 0' }}>{line}</p>
+          ))}
         </div>
       </div>
     </div>

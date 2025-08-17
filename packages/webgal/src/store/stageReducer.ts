@@ -17,7 +17,7 @@ import {
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import cloneDeep from 'lodash/cloneDeep';
 import { commandType } from '@/Core/controller/scene/sceneInterface';
-import { STAGE_KEYS } from '@/Core/constants';
+import { STAGE_KEYS, PRESERVE_STAGE_KEYS } from '@/Core/constants';
 
 // 初始化舞台数据
 
@@ -59,6 +59,10 @@ export const initState: IStageState = {
   isDisableTextbox: false,
   replacedUIlable: {},
   figureMetaData: {},
+  textPageContent: {
+    title: '',
+    content: ''
+  },
 };
 
 /**
@@ -74,7 +78,16 @@ const stageSlice = createSlice({
      * @param action 替换的状态
      */
     resetStageState: (state, action: PayloadAction<IStageState>) => {
+      // 保存需要保留的状态
+      const preservedTextPageContent = state.textPageContent;
+      const preservedGameVar = state.GameVar;
+      
+      // 重置状态
       Object.assign(state, action.payload);
+      
+      // 恢复需要保留的状态
+      state.textPageContent = preservedTextPageContent;
+      state.GameVar = preservedGameVar;
     },
     /**
      * 设置舞台状态
@@ -82,8 +95,23 @@ const stageSlice = createSlice({
      * @param action 要替换的键值对
      */
     setStage: (state, action: PayloadAction<ISetStagePayload>) => {
-      // @ts-ignore
-      state[action.payload.key] = action.payload.value;
+      // 特殊处理 textPageContent，确保它是一个对象
+      if (action.payload.key === 'textPageContent') {
+        try {
+          state.textPageContent = typeof action.payload.value === 'string' 
+            ? JSON.parse(action.payload.value) 
+            : action.payload.value;
+        } catch (e) {
+          console.error('Failed to parse textPageContent:', e);
+          state.textPageContent = {
+            title: '',
+            content: '内容解析错误'
+          };
+        }
+      } else {
+        // @ts-ignore
+        state[action.payload.key] = action.payload.value;
+      }
     },
     /**
      * 修改舞台状态变量

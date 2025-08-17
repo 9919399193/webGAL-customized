@@ -188,6 +188,7 @@ const zhTw = {
       load: '讀檔',
       fullscreen: '全螢幕',
       options: '設定',
+      notes: '備忘',
       title: '主選單',
       titleTips: '確定要返回主選單嗎？',
     },

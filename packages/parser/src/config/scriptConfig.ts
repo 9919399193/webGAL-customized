@@ -32,6 +32,7 @@ export const SCRIPT_CONFIG = [
   { scriptString: 'playEffect', scriptType: commandType.playEffect },
   { scriptString: 'applyStyle', scriptType: commandType.applyStyle },
   { scriptString: 'wait', scriptType: commandType.wait },
+  { scriptString: 'setStage', scriptType: commandType.setStage },
 ];
 export const ADD_NEXT_ARG_LIST = [
   commandType.bgm,

@@ -2,6 +2,7 @@ import { initState, resetStageState, setStage } from '@/store/stageReducer';
 import { webgalStore } from '@/store/store';
 import cloneDeep from 'lodash/cloneDeep';
 import { WebGAL } from '@/Core/WebGAL';
+import { PRESERVE_STAGE_KEYS } from '@/Core/constants';
 
 export const resetStage = (resetBacklog: boolean, resetSceneAndVar = true) => {
   /**
@@ -19,11 +20,25 @@ export const resetStage = (resetBacklog: boolean, resetSceneAndVar = true) => {
   WebGAL.gameplay.performController.removeAllPerform();
   WebGAL.gameplay.resetGamePlay();
 
-  // 清空舞台状态表
+  // 清空舞台状态表，但保留特定的状态
+  const currentState = webgalStore.getState().stage;
   const initSceneDataCopy = cloneDeep(initState);
-  const currentVars = webgalStore.getState().stage.GameVar;
+  
+  // 重置状态
   webgalStore.dispatch(resetStageState(initSceneDataCopy));
+
+  // 恢复需要保留的状态
   if (!resetSceneAndVar) {
-    webgalStore.dispatch(setStage({ key: 'GameVar', value: currentVars }));
+    // 在不重置场景和变量的情况下，恢复游戏变量
+    webgalStore.dispatch(setStage({ 
+      key: PRESERVE_STAGE_KEYS.GAME_VAR, 
+      value: currentState[PRESERVE_STAGE_KEYS.GAME_VAR] 
+    }));
   }
+
+  // 始终保持帮助内容
+  webgalStore.dispatch(setStage({ 
+    key: PRESERVE_STAGE_KEYS.TEXT_PAGE, 
+    value: currentState[PRESERVE_STAGE_KEYS.TEXT_PAGE] 
+  }));
 };

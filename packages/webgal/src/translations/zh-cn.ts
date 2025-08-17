@@ -188,6 +188,7 @@ const zhCn = {
       load: '读档',
       fullscreen: '全屏',
       options: '选项',
+      notes: '备忘',
       title: '标题',
       titleTips: '确定要返回标题界面吗？',
     },

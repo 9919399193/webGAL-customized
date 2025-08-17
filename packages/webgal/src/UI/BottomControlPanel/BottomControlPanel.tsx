@@ -20,6 +20,7 @@ import {
   FullScreen,
   Home,
   Lock,
+  Notes,
   OffScreen,
   PlayOne,
   PreviewCloseOne,
@@ -83,6 +84,25 @@ export const BottomControlPanel = () => {
     <>
       {GUIStore.showTextBox && stageState.enableFilm === '' && (
         <div className={styles.main} style={{ visibility: GUIStore.controlsVisibility ? 'visible' : 'hidden' }}>
+          <span
+            className={styles.singleButton}
+            style={{ fontSize }}
+            onClick={() => {
+              setMenuPanel(MenuPanelTag.TextPage);
+              setComponentVisibility('showMenuPanel', true);
+              playSeClick();
+            }}
+            onMouseEnter={playSeEnter}
+          >
+            <Notes
+              className={styles.button}
+              theme="outline"
+              size={size}
+              fill="#f5f5f7"
+              strokeWidth={strokeWidth}
+            />
+            <span className={styles.button_text}>{t('buttons.notes')}</span>
+          </span>
           {GUIStore.showTextBox && (
             <span
               className={styles.singleButton}
